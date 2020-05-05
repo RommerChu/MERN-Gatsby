@@ -15,6 +15,7 @@ async function index(require, response, next){
     res.status(200).json({students})
 }
 
+
 /////SHOW STUDENT
 const show = async (require, response, next)=>{
 
@@ -83,12 +84,13 @@ const store = async (require,response)=>{
     return response().json({student: newStudent})
 }
 
+
+
 ////UPDATE
 const update  = async (require, response) => {
 
     const student_id = require.params.student_id
 
-    const id = require.body.id
     const firstName = require.body.firstName
     const middleName = require.body.middleName
     const lastName = require.body.lastName
@@ -100,57 +102,54 @@ const update  = async (require, response) => {
     const section = require.body.section
     const teacher_id = require.body.teacher_id
 
-    try {
+    try{
         const student = await Student.findById(student_id)
-    } catch (e) {
-        return response.status(422).json({message: e})
+    }catch (e) {
+        return response.status(422).json({message:e})
     }
 
-    student_id.id = id
-    student_id.firstName = firstName
-    student_id.middleName = middleName
-    student_id.lastName = lastName
-    student_id.age = age
-    student_id.address = address
-    student_id.parents = parents
-    student_id.telephone = telephone
-    student_id.grader = grade
-    student_id.section = section
-    student_id.teacher_id = teacher_id
+    student.firstName = firstName
+    student.middleName = middleName
+    student.lastName = lastName
+    student.age = age
+    student.address = address
+    student.parents = parents
+    student.telephone = telephone
+    student.grade = grade
+    student.section = section
+    student.teacher_id = teacher_id
     try {
         await student.save()
 
     } catch (e) {
         return response.status(417).json({message: e})
-
     }
-
-    res.status(202).json({student})
+    response.status(202).json({student})
 }
 
 
+
 /////DELETE
-const deleteStudent = async (require,response) =>{
+const deleteStudent = async (require, response) =>{
 
     const studentId = require.params.studentId
 
+    let student;
     try{
-        const student = await Student.findById(studentId)
+        student = await Student.findById(studentId).populate('teacher_id')
     }catch (e) {
         return response.status(422).json({message:e})
     }
 
     try{
-        await studentId.remove()
+        await student.remove()
+        student.teacher_id.student.pull(student)
+        await student.teacher_id.save()
     }catch (e) {
         return response.status(417).json({message:e})
     }
-
-
+    response.status(202).json({message:"Student successfully deleted."})
 }
-
-
-
 
 
 
@@ -160,4 +159,4 @@ exports.showStudent = show
 exports.storeStudent = store
 exports.updateStudent = update
 exports.deleteStudent = deleteStudent
-exports.StudentsByTeacher = StudentByTeacher
+

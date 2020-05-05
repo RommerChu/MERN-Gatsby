@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const studentSchema = new Schema({
+const teacherSchema = new Schema({
 
     firstName: {type:String, require:true},
     middleName:{type:String, require:true},
@@ -14,19 +14,11 @@ const studentSchema = new Schema({
         postalCode:{type:String, require:true},
         country:{type:String, require:true},
     }],
-    parents:[{
-        father:{type:String, require:true},
-        contact1:{type:String, require:true},
-        email1:{type:String, require:true},
-        mother:{type:String, require:true},
-        contact2:{type:String, require:true},
-        email2:{type:String, require:true},
-    }],
     telephone:{type:String, require:true},
     grade:{type:String, require:true},
     section:{type:String, require:true},
-    teacher_id:{type:mongoose.Types.ObjectId,require:true,ref:'Teacher'},
+
 
 })
 
-module.export = mongoose.model("Student",studentSchema)
+module.export = mongoose.model("Teacher",teacherSchema)
