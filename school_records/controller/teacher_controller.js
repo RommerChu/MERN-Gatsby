@@ -41,6 +41,7 @@ const store = async (require,response)=>{
     const age = require.body.age
     const address = require.body.address
     const telephone = require.body.telephone
+    const email = require.body.email
     const grade =  require.body.grade
     const section = require.body.section
 
@@ -57,6 +58,7 @@ const store = async (require,response)=>{
         age,
         address,
         telephone,
+        email,
         grade,
         section,
     })
@@ -83,6 +85,7 @@ const update  = async (require, response) => {
     const age = require.body.age
     const address = require.body.address
     const telephone = require.body.telephone
+    const email = require.body.email
     const grade = require.body.grade
     const section = require.body.section
 
@@ -99,6 +102,7 @@ const update  = async (require, response) => {
     teacher.age = age
     teacher.address = address
     teacher.telephone = telephone
+    teacher.email = email
     teacher.grade = grade
     teacher.section = section
 

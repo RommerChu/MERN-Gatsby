@@ -15,6 +15,7 @@ const teacherSchema = new Schema({
         country:{type:String, require:true},
     }],
     telephone:{type:String, require:true},
+    email:{type:String, require:true},
     grade:{type:String, require:true},
     section:{type:String, require:true},
 
