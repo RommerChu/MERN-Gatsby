@@ -12,7 +12,6 @@ const studentSchema = new Schema({
         city:{type:String, require:true},
         province:{type:String, require:true},
         postalCode:{type:String, require:true},
-        country:{type:String, require:true},
     }],
     parents:[{
         father:{type:String, require:true},
@@ -22,8 +21,8 @@ const studentSchema = new Schema({
         contact2:{type:String, require:true},
         email2:{type:String, require:true},
     }],
-    telephone:{type:String, require:true},
-    grade:{type:String, require:true},
+
+    level:{type:String, require:true},
     section:{type:String, require:true},
     teacher_id:{type:mongoose.Types.ObjectId,require:true,ref:'Teacher'},
 
